@@ -11,6 +11,7 @@ int main() {
 	int playerSpeedMult = 5;
 	Rectangle enemy = {40, 300, 40, 40};
 	int enemySpeed = 6;
+	int speedMutiplier = 1;
 	std::vector<Rectangle> bullets;
 	int bulletsSpeed = 20;
 	int killsCounter = 0;
@@ -18,13 +19,16 @@ int main() {
 
 
 	while (!WindowShouldClose()) {
+		if ((killsCounter/2) > 1 && (killsCounter/2) < 5){
+			speedMutiplier = killsCounter/2;
+		}
 		// movement and position of the player
 		if (IsKeyDown(KEY_RIGHT) || IsKeyDown(KEY_D)) {
-			player.x += playerSpeedMult;
+			player.x += playerSpeedMult * speedMutiplier;
 		}
 
 		if (IsKeyDown(KEY_LEFT) || IsKeyDown(KEY_A)) {
-			player.x -= playerSpeedMult;
+			player.x -= playerSpeedMult * speedMutiplier;
 		}
 
 		if (player.x <= 0) {
@@ -50,13 +54,13 @@ int main() {
 			}
 		}
 
+		enemy.y += enemySpeed * speedMutiplier;
 
-
-		enemy.y += enemySpeed;
-		if (enemy.y > windowHeight) {
+		if (enemy.y > windowHeight) { //if enemy leaves the window (touches the ground) it resets the values
 			enemy.y = 10;
 			enemy.x = (float)GetRandomValue(0, windowWidth - 40);
 			killsCounter = 0;
+			speedMutiplier = 1;
 		}
 		
 

@@ -15,7 +15,7 @@ FetchContent_Declare(
 set(BUILD_EXAMPLES OFF CACHE BOOL "" FORCE)
 FetchContent_MakeAvailable(raylib)
 
-add_executable(game main.cpp)
+add_executable(game tetris.cpp)
 
 target_link_libraries(game PRIVATE raylib)
  
